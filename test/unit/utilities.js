@@ -33,12 +33,34 @@ describe('the todo.App', function() {
       expect(Object.keys(todo.App.prototype)).to.have.length.above(1);
     });
 
-    it('should be a number', function(){
-      todo.util.getUniqueId().should.be.a('number');
-    });
 
   });
 });
 
 describe('the todo.util methods', function() {
+    
+    it('should be a number', function(){
+      todo.util.getUniqueId().should.be.a('number');
+    });
+
+    it('should have all the necessary methods', function(){
+      todo.util.should.have.property('trimTodoName');
+    });
+
+    it('shold return a string without white space', function(){
+      expect(todo.util.trimTodoName('abcd 123  ')).to.equal('abcd 123');
+    });
+
+    it('assert type of is boolean', function(){
+      assert.typeOf(todo.util.isValidTodoName(), 'boolean');
+    });
+
+    it('expect Valid ToDo name to be true', function(){
+      expect(todo.util.isValidTodoName('abc'), true);
+    });
+
+    it('expect getUniqueId to be 1', function(){
+      expect(todo.util.getUniqueId(), 1);
+    });
+
 });
