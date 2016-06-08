@@ -12,8 +12,10 @@ var todo = {
       method: 'GET',
       endpoint: 'http://localhost:3000/todos'
     }, function(err, res){
+        console.log('res', res);
       if (err) { throw err; }
       if (!debug) {
+        console.log('res', res); // Added this
         todo.setup(res.todos);
       } else {
         todo.setup();

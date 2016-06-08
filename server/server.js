@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 var todos = [{ name: 'Client-side unit tests',  done: true},{  name: 'End-to-end workflow tests',  done: true},{  name: 'Visual tests',  done: true},{  name: 'Continous integration',  done: true},{  name: 'Code coverage reporting',  done: true},{  name: 'Server-side unit tests',  done: false},{  name: 'Client-server integration tests',  done: false}];
 
 app.get('/todos', function(req, res){
+  console.log('app.get /todos ran from server.js', res.body);
   res.send({todos: todos});
 });
 
