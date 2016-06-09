@@ -3,6 +3,10 @@ describe('API integration', function(){
   var server, setupStub, JSONresponse;
 
   it('todo.setup receives an array of todos when todo.init is called', function () {
+    // Fake JSON response
+    JSONresponse = [{ name: 'testsssssss1',  done: true}];
+
+    // Object which makes a fake GET request
     var object = {
       method: function(json) {
         console.log('json', json);
@@ -22,10 +26,17 @@ describe('API integration', function(){
 
         // STUB: then check todo.app.items -> check if an []
         // Creates a stub for todo.setup
-        setupStub = sinon.stub(todo, 'setup');
+        console.log('todo.setup', todo.setup);
+
+        setupStub = sinon.stub(todo, "setup");
+
 
         // Makes our fake server respond
-        server.respond();
+        server.respond('HERES A STRING');
+       
+        // server.autoRespondAfter
+        console.log('setupStub', setupStub);
+       
         // Restores setup stub
         setupStub.restore();
         
@@ -33,13 +44,15 @@ describe('API integration', function(){
     };
 
     // Creates a before spy
-    // var spy1 = sinon.spy(object, 'method');
-    // spy1('hello');
+    var spy1 = sinon.spy(object, 'method');
+    spy1(JSONresponse);
+    sinon.assert.called(spy1);
     // assert(spy1.withArgs([{ name: 'testsssssss1',  done: true}]));
     // spy1.assert.calledWith([{ name: 'testsssssss1',  done: true}])
     // Creates an after spy
-    var spy2 = sinon.spy(object, 'method');
-    sinon.assert.calledWith(spy2, [{ name: 'testsssssss2',  done: true}])
+    // var spy2 = sinon.spy(object, 'method');
+
+    // sinon.assert.calledWith(spy2, [{ name: 'testsssssss2',  done: true}])
     // assert(spy2.withArgs([{ name: 'testsssssss2',  done: true}]));
     // assert(stub.calledBefore(spyInit));
     // assert(stub.calledBefore(spySetup));
